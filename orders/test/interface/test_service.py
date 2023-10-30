@@ -41,6 +41,18 @@ def test_will_raise_when_order_not_found(orders_rpc):
     assert err.value.value == 'Order with id 1 not found'
 
 
+def test_list_orders(orders_rpc, order):
+    response = orders_rpc.list_orders()
+    assert len(response) > 0
+
+
+@pytest.mark.usefixtures('db_session')
+def test_will_raise_when_orders_not_found(orders_rpc):
+    with pytest.raises(RemoteError) as err:
+        orders_rpc.list_orders()
+    assert err.value.value == 'No orders found'
+
+
 @pytest.mark.usefixtures('db_session')
 def test_can_create_order(orders_service, orders_rpc):
     order_details = [

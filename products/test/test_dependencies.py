@@ -47,6 +47,19 @@ def test_create(product, redis_client, storage):
         int(stored_product[b'passenger_capacity']))
     assert product['in_stock'] == int(stored_product[b'in_stock'])
 
+def test_delete(product, redis_client, storage):
+    storage.create(product)
+    storage.delete(product)
+
+    deleted_product = redis_client.hgetall('products:LZ127')
+
+    assert product['id'] == deleted_product[b'id'].decode('utf-8')
+    assert product['title'] == deleted_product[b'title'].decode('utf-8')
+    assert product['maximum_speed'] == int(deleted_product[b'maximum_speed'])
+    assert product['passenger_capacity'] == (
+        int(deleted_product[b'passenger_capacity']))
+    assert product['in_stock'] == int(deleted_product[b'in_stock'])
+
 
 def test_decrement_stock(storage, create_product, redis_client):
     create_product(id=1, title='LZ 127', in_stock=10)

@@ -43,6 +43,9 @@ class StorageWrapper:
         else:
             return self._from_hash(product)
 
+    def delete(self, product_id):
+        self.client.delete(self._format_key(product_id))
+
     def list(self):
         keys = self.client.keys(self._format_key('*'))
         for key in keys:

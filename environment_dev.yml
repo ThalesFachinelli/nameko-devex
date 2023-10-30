@@ -10,7 +10,7 @@ dependencies:
     - importlib-metadata==4.13.0
     - fastapi==0.70.0
     - uvicorn==0.15.0
-    - marshmallow==2.19.2
+    - toastedmarshmallow==0.1.0
     - psycopg2-binary==2.8.2
     - sqlalchemy==1.4.46
     - nameko-sqlalchemy==1.5.0
