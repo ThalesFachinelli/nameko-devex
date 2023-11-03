@@ -9,4 +9,4 @@ function for an example.
 
  The best way to fix this problem is to make the functions async. Just changing the function that take the longest time
 to run (list orders) already boost up throughput considerably but keep in mind that changing sync to async makes
- the system more prone to errors.
+ the system more prone to errors during performance tests.
