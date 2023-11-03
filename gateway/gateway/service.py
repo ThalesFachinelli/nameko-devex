@@ -100,7 +100,7 @@ class GatewayService(object):
             mimetype='application/json'
         )
 
-    def _list_orders(self):
+    async def _list_orders(self):
         # Retrieve order data from the orders service.
         # Note - this may raise a remote exception that has been mapped to
         # raise``OrderNotFound``
@@ -138,7 +138,7 @@ class GatewayService(object):
             mimetype='application/json'
         )
 
-    def _get_order(self, order_id):
+    async def _get_order(self, order_id):
         # Retrieve order data from the orders service.
         # Note - this may raise a remote exception that has been mapped to
         # raise``OrderNotFound``

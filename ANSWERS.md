@@ -1,7 +1,12 @@
 ### Question 1: Why is performance degrading as the test runs longer ?
 
-The longer the tests run, more data is inserted in the database therefore more serialization/deserialization of data has to be performed and as the enviroment is set to use Marshmallow performance tends to degrade more and more as the tests run. This is due to the fact that Marshmallow is basically because when you serialize an object through Marshmallow it iterates through all the fields it knows about, then does a ton of reflection to extract the field from the input object. One way to mitigate this problem is to generate a serialization method at runtime that assumes the incoming object complies with the schema, falling back to the original Marshmallow code if it doesn’t as Toasted Marshmallow does.
+The longer the tests run the more number requests are sent at a time. One of the biggest
+problems in the original implementation is that all the functions are synchronous which makes performance degrade the 
+more requests are received specially on functions that need more processing to return results as the list orders 
+function for an example.
 
 ### Question 2: How do you fix it ?
 
-Use another serialization framework like Toasted Marshmallow.
+ The best way to fix this problem is to make the functions async. Just changing the function that take the longest time
+to run (list orders) already boost up throughput considerably but keep in mind that changing sync to async makes
+ the system more prone to errors.
